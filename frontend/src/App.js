@@ -1,71 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import ContactForm from './components/ContactForm';
-import ContactList from './components/ContactList';
-import './App.css';
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
 
-const API = "https://contact-management-backend-z9r8.onrender.com/contacts";
+const app = express();
 
-function App() {
-  const [contacts, setContacts] = useState([]);
+app.use(cors());
+app.use(express.json());
 
-  useEffect(() => {
-    fetchContacts();
-  }, []);
+// ✅ ROUTES
+app.use("/contacts", require("./routes/contacts"));
 
-  const fetchContacts = async () => {
-    const res = await fetch(API);
-    const data = await res.json();
-    setContacts(data);
-  };
+// ✅ ROOT ROUTE (VERY IMPORTANT)
+app.get("/", (req, res) => {
+  res.send("Backend is running");
+});
 
-  const addContact = async (contact) => {
-    const res = await fetch(API, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(contact),
-    });
+// ❗ Mongo connect (example)
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("MongoDB connected"))
+  .catch(err => console.error(err));
 
-    if (res.ok) {
-      fetchContacts();
-    }
-  };
-
-  const deleteContact = async (id) => {
-    const confirmDelete = window.confirm(
-      'Are you sure you want to delete this contact?'
-    );
-
-    if (!confirmDelete) return;
-
-    const res = await fetch(`${API}/${id}`, {
-      method: 'DELETE',
-    });
-
-    if (res.ok) {
-      setContacts((prev) => prev.filter((c) => c._id !== id));
-    }
-  };
-
-  return (
-    <div className="page">
-      <div className="container">
-        <div className="box form-box">
-          <h1>ADD CONTACT'S</h1>
-          <ContactForm onAdd={addContact} />
-        </div>
-
-        <div className="box list-box">
-          <h1>SAVED CONTACTS</h1>
-          <ContactList
-            contacts={contacts}
-            onDelete={deleteContact}
-          />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export default App;
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on ${PORT}`));
