@@ -3,6 +3,8 @@ import ContactForm from './components/ContactForm';
 import ContactList from './components/ContactList';
 import './App.css';
 
+const API = "https://contact-management-backend-z9r8.onrender.com/contacts";
+
 function App() {
   const [contacts, setContacts] = useState([]);
 
@@ -11,13 +13,13 @@ function App() {
   }, []);
 
   const fetchContacts = async () => {
-    const response = await fetch('https://contact-management-backend-z9r8.onrender.com/contacts');
-    const data = await response.json();
+    const res = await fetch(API);
+    const data = await res.json();
     setContacts(data);
   };
 
   const addContact = async (contact) => {
-    const response = await fetch('https://contact-management-backend-z9r8.onrender.com/api/contacts', {
+    const res = await fetch(API, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -25,40 +27,35 @@ function App() {
       body: JSON.stringify(contact),
     });
 
-    if (response.ok) {
+    if (res.ok) {
       fetchContacts();
     }
   };
 
   const deleteContact = async (id) => {
-  const confirmDelete = window.confirm(
-    'Are you sure you want to delete this contact?'
-  );
+    const confirmDelete = window.confirm(
+      'Are you sure you want to delete this contact?'
+    );
 
-  if (!confirmDelete) return;
+    if (!confirmDelete) return;
 
-  const response = await fetch(
-    `https://contact-management-backend-z9r8.onrender.com/api/contacts/${id}`,
-    { method: 'DELETE' }
-  );
+    const res = await fetch(`${API}/${id}`, {
+      method: 'DELETE',
+    });
 
-  if (response.ok) {
-    setContacts((prev) => prev.filter((c) => c._id !== id));
-  }
-};
-
+    if (res.ok) {
+      setContacts((prev) => prev.filter((c) => c._id !== id));
+    }
+  };
 
   return (
     <div className="page">
       <div className="container">
-
-        {/* LEFT BOX */}
         <div className="box form-box">
           <h1>ADD CONTACT'S</h1>
           <ContactForm onAdd={addContact} />
         </div>
 
-        {/* RIGHT BOX */}
         <div className="box list-box">
           <h1>SAVED CONTACTS</h1>
           <ContactList
@@ -66,7 +63,6 @@ function App() {
             onDelete={deleteContact}
           />
         </div>
-
       </div>
     </div>
   );
