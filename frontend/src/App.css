@@ -1,0 +1,289 @@
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+
+.App {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 30px;
+  width: 380px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+.container {
+  width: 100%;
+  max-width: 1400px;
+  display: flex;
+  justify-content: center;
+  gap: 100px;               
+}
+
+
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+label {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 6px;
+  display: block;
+  color: #0f172a; /* Dark slate */
+}
+
+
+input,
+textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  background: rgba(255, 255, 255, 0.9);
+  transition: all 0.3s ease;
+}
+
+input:focus,
+textarea:focus {
+  box-shadow: 0 0 0 2px #667eea;
+}
+
+textarea {
+  resize: none;
+  height: 90px;
+}
+
+.error {
+  margin-top: 5px;
+  font-size: 12px;
+  color: #ffb4b4;
+}
+
+button {
+  margin-top: 10px;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(255, 117, 140, 0.6);
+}
+
+button:disabled {
+  background: #bbb;
+  cursor: not-allowed;
+}
+
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 25px;
+}
+
+li {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 14px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+li h3 {
+  margin: 0 0 6px;
+  font-size: 18px;
+  color: #5a67d8;
+}
+
+li p {
+  margin: 4px 0;
+  font-size: 13px;
+  color: #555;
+}
+
+li button {
+  margin-top: 10px;
+  background: linear-gradient(135deg, #f85032, #e73827);
+  padding: 8px 14px;
+  font-size: 13px;
+  border-radius: 10px;
+}
+
+li button:hover {
+  box-shadow: 0 6px 15px rgba(231, 56, 39, 0.6);
+}
+
+.page {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+
+.box {
+  width: 35%;
+  height: 650px;                /* fixed height */
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(16px);
+  border-radius: 24px;
+  padding: 30px;
+  box-shadow: 0 30px 50px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+
+.box h1 {
+  text-align: center;
+  font-size: 34px;                 
+  font-weight: 900;               
+  color: #fff9f9;                  
+  margin-bottom: 20px;
+  font-family: 'Poppins', 'Roboto', sans-serif; 
+  letter-spacing: 1.5px;           
+}
+
+
+.list-box {
+  overflow-y: auto;
+  scrollbar-width: none;     
+}
+
+.list-box::-webkit-scrollbar {
+  display: none;                 
+}
+
+.list-box::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #6366f1, #8b5cf6);
+  border-radius: 10px;
+}
+
+.list-box::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.form-box {
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+
+  html, body {
+    height: auto;
+    overflow: auto;
+  }
+
+  .page {
+    height: auto;
+    min-height: 100vh;
+    align-items: flex-start;  
+    overflow: visible;
+  }
+
+  .container {
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+  }
+
+
+  .box {
+    width: 100%;
+    height: auto;           
+  }
+
+  .form-box {
+    overflow: visible;       
+  }
+
+
+  .list-box {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+}
+
+@media (max-width: 1024px) {
+  .container {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .box {
+    height: auto;
+  }
+
+  .list-box {
+    max-height: 450px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 20px;
+    gap: 20px;
+  }
+
+  .box {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .box h2 {
+    font-size: 20px;
+  }
+
+  li {
+    padding: 12px;
+  }
+
+  li h3 {
+    font-size: 16px;
+  }
+
+  li p {
+    font-size: 12px;
+  }
+}
