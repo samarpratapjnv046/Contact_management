@@ -11,13 +11,13 @@ function App() {
   }, []);
 
   const fetchContacts = async () => {
-    const response = await fetch('http://localhost:5000/api/contacts');
+    const response = await fetch('https://contact-management-backend-z9r8.onrender.com/contacts');
     const data = await response.json();
     setContacts(data);
   };
 
   const addContact = async (contact) => {
-    const response = await fetch('http://localhost:5000/api/contacts', {
+    const response = await fetch('https://contact-management-backend-z9r8.onrender.com/api/contacts', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ function App() {
   if (!confirmDelete) return;
 
   const response = await fetch(
-    `http://localhost:5000/api/contacts/${id}`,
+    `https://contact-management-backend-z9r8.onrender.com/api/contacts/${id}`,
     { method: 'DELETE' }
   );
 
